@@ -4,7 +4,9 @@
 
 > 🏆 Submitted to the [Hermes Agent Accelerated Business Hackathon](https://x.com/NousResearch/status/2066921443548348436) — presented by **@NVIDIAAI × @stripe × @NousResearch**
 >
-> **Note:** This project was already in development as a real deployment for a California permit consulting business. The hackathon aligned with where the project was, so we entered it — but PermitOps OS is a production system, not a hackathon prototype.
+> **Public repository notice:** PermitOps OS is based on a real, active business/project, but the information in this public repository is **sample/sanitized demo material**. Names, case details, screenshots, records, metrics, and workflow examples are generalized or synthetic so no private client, applicant, credential, or operational data is exposed.
+>
+> **Project status note:** This project was already in development as a real deployment for a California permit consulting business. The hackathon aligned with where the project was, so we entered it — but PermitOps OS is a production system, not a hackathon prototype. The public repo documents the architecture and sample workflow, not the private production dataset.
 
 ## 🎥 Demo
 
