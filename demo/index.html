@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; width:1920px; height:1080px; overflow:hidden; background:#07101f; }
+  body { font-family: Arial, Helvetica, sans-serif; color:#f7fafc; }
+  #root { position:relative; width:1920px; height:1080px; overflow:hidden; background: radial-gradient(circle at 15% 12%, rgba(29,110,242,.28), transparent 32%), radial-gradient(circle at 85% 80%, rgba(46,194,126,.18), transparent 30%), linear-gradient(145deg,#07101f 0%,#0b1220 48%,#111d32 100%); }
+  #root:before { content:""; position:absolute; inset:0; background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size:96px 96px; mask-image: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.05)); }
+  .clip { position:absolute; inset:0; width:1920px; height:1080px; overflow:hidden; padding:86px 104px 96px; }
+  .brand { position:absolute; top:48px; left:72px; display:flex; gap:14px; align-items:center; z-index:20; }
+  .logo { width:48px; height:48px; border-radius:15px; background:linear-gradient(135deg,#1d6ef2,#2ec27e); display:grid; place-items:center; font-weight:900; color:white; box-shadow:0 18px 60px rgba(29,110,242,.32); }
+  .brand .name { font-size:27px; font-weight:800; letter-spacing:-.03em; }
+  .topchips { position:absolute; top:50px; right:72px; display:flex; gap:12px; z-index:20; }
+  .chip { padding:11px 16px; border:1px solid rgba(255,255,255,.14); border-radius:999px; color:#dbe7ff; background:rgba(7,16,31,.62); backdrop-filter:blur(16px); font-size:18px; }
+  h1 { margin:0; font-size:82px; line-height:.95; letter-spacing:-.065em; max-width:1120px; }
+  h2 { margin:0; font-size:52px; line-height:1.02; letter-spacing:-.045em; }
+  h3 { margin:0; font-size:30px; line-height:1.08; letter-spacing:-.025em; color:#07101f; }
+  p { font-size:26px; line-height:1.36; color:#c9d7ef; margin:0; }
+  .muted { color:#95a6c8; }
+  .eyebrow { color:#7dd3fc; font-weight:800; text-transform:uppercase; letter-spacing:.16em; font-size:17px; margin-bottom:22px; }
+  .glass { border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.08); border-radius:30px; box-shadow:0 30px 90px rgba(0,0,0,.27); backdrop-filter:blur(18px); }
+  .paper { border:1px solid rgba(255,255,255,.66); background:rgba(248,251,255,.96); border-radius:28px; box-shadow:0 34px 80px rgba(2,8,23,.28); color:#0b1220; }
+  .row { display:flex; gap:24px; align-items:stretch; }
+  .card { padding:30px; }
+  .card p { color:#4b5874; font-size:22px; margin-top:12px; }
+  .status { display:inline-flex; align-items:center; gap:8px; margin-top:18px; padding:9px 13px; border-radius:999px; font-size:15px; font-weight:800; text-transform:uppercase; letter-spacing:.08em; }
+  .blue { background:rgba(29,110,242,.12); color:#1d56d5; } .green { background:rgba(46,194,126,.13); color:#087a42; } .amber { background:rgba(242,201,76,.22); color:#8a5b00; } .red { background:rgba(255,91,120,.13); color:#bc2448; }
+  .caption { position:absolute; z-index:30; left:50%; bottom:42px; transform:translateX(-50%); max-width:1240px; text-align:center; padding:22px 34px; border-radius:24px; background:rgba(3,8,18,.82); border:1px solid rgba(255,255,255,.14); box-shadow:0 20px 70px rgba(0,0,0,.36); font-size:32px; line-height:1.05; font-weight:820; letter-spacing:-.025em; color:#fff; }
+  .mini { font-size:18px; color:#6a7894; }
+  .rail { height:7px; background:rgba(29,110,242,.12); border-radius:999px; overflow:hidden; margin-top:18px; } .rail b { display:block; height:100%; background:linear-gradient(90deg,#1d6ef2,#2ec27e); border-radius:999px; }
+  .arrow { color:#7dd3fc; font-size:42px; align-self:center; }
+  .scene-title { margin-top:110px; }
+  .pill { display:inline-block; padding:8px 16px; border-radius:999px; font-size:20px; font-weight:700; margin:4px; }
+  .pill.nvidia { background:rgba(118,185,0,.15); color:#76b900; border:1px solid rgba(118,185,0,.3); }
+  .pill.stripe { background:rgba(99,91,255,.15); color:#8b85ff; border:1px solid rgba(99,91,255,.3); }
+  .pill.hermes { background:rgba(29,110,242,.15); color:#7dd3fc; border:1px solid rgba(29,110,242,.3); }
+  .money { font-size:48px; font-weight:900; color:#2ec27e; }
+  .money-out { font-size:48px; font-weight:900; color:#f2c94c; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="108" data-width="1920" data-height="1080">
+  <div class="brand"><div class="logo">P</div><div><div class="name">PermitOps OS</div><div class="mini">Hermes Agent operator layer</div></div></div>
+  <div class="topchips"><div class="chip">Synthetic data</div><div class="chip">Stripe test mode</div><div class="chip">Approval-gated</div></div>
+
+  <!-- S1: Hook 0-10 -->
+  <section id="s1" class="clip" data-start="0" data-duration="10" data-track-index="1">
+    <div class="scene-title">
+      <div class="eyebrow">The opportunity</div>
+      <h1>Permit consulting is a billion-dollar industry run on spreadsheets.</h1>
+      <p style="max-width:1000px;margin-top:28px">Email chains. Sticky notes. Lost documents. Missed deadlines.</p>
+    </div>
+    <div class="caption">A real business. A real operator. Built on Hermes Agent.</div>
+  </section>
+
+  <!-- S2: Pearl intro 10-15 -->
+  <section id="s2" class="clip" data-start="10" data-duration="5" data-track-index="1">
+    <div style="position:absolute;inset:0;display:grid;place-items:center;text-align:center">
+      <div>
+        <div class="eyebrow">Meet Pearl</div>
+        <h1 style="font-size:72px;max-width:1400px;margin:0 auto">Pearl earns, spends, and runs operations.</h1>
+      </div>
+    </div>
+    <div class="caption">Built on Hermes Agent. Powered by NVIDIA + Stripe.</div>
+  </section>
+
+  <!-- S3: Intake/classification 15-29 -->
+  <section id="s3" class="clip" data-start="15" data-duration="14" data-track-index="1">
+    <div class="glass" style="position:absolute; left:105px; top:150px; width:1710px; height:760px; padding:42px">
+      <h2>Intake: a new client request arrives</h2>
+      <div class="row" style="margin-top:40px">
+        <div class="paper card" style="width:500px"><h3>Classify</h3><p>Permit type, jurisdiction, entity, premises.</p><span class="status blue">classified</span></div>
+        <div class="paper card" style="width:500px"><h3>Link</h3><p>Person, business, city, license workflow.</p><span class="status green">linked</span></div>
+        <div class="paper card" style="width:500px"><h3>Check packet</h3><p>What's ready, what's missing, what needs review.</p><span class="status amber">needs-review</span></div>
+      </div>
+      <div class="rail" style="margin-top:36px"><b style="width:65%"></b></div>
+      <p style="margin-top:16px">Packet readiness: 65%. 3 items ready, 2 missing, 1 needs human review.</p>
+    </div>
+    <div class="caption">Pearl classifies, links, and checks packet readiness.</div>
+  </section>
+
+  <!-- S4: EARN 29-43 -->
+  <section id="s4" class="clip" data-start="29" data-duration="14" data-track-index="1">
+    <div class="scene-title"><div class="eyebrow" style="color:#2ec27e">Earn</div><h1 style="font-size:72px">Pearl generates revenue.</h1></div>
+    <div class="row" style="position:absolute; left:120px; right:120px; top:400px">
+      <div class="paper card" style="width:440px"><h3>1. Draft invoice</h3><p>Pearl prepares a Stripe invoice for permit packet services.</p><span class="status green">drafted</span></div>
+      <div class="arrow">→</div>
+      <div class="paper card" style="width:440px"><h3>2. Send for payment</h3><p>Client receives invoice. Pays via Stripe.</p><span class="status blue">sent</span></div>
+      <div class="arrow">→</div>
+      <div class="paper card" style="width:440px"><h3>3. Confirm + proceed</h3><p>Pearl confirms payment and moves the case forward.</p><div class="money">$1,250</div><span class="status green">paid</span></div>
+    </div>
+    <div class="caption">Real revenue. Tracked end to end through Stripe.</div>
+  </section>
+
+  <!-- S5: SPEND 43-59 -->
+  <section id="s5" class="clip" data-start="43" data-duration="16" data-track-index="1">
+    <div class="scene-title"><div class="eyebrow" style="color:#f2c94c">Spend</div><h1 style="font-size:72px">Pearl also spends — with gates.</h1></div>
+    <div class="row" style="position:absolute; left:120px; right:120px; top:400px; flex-wrap:wrap">
+      <div class="paper card" style="width:380px"><h3>City filing fee</h3><p>Queued via Stripe with reason + limit.</p><div class="money-out">$340</div><span class="status amber">approval needed</span></div>
+      <div class="paper card" style="width:380px"><h3>OCR processing</h3><p>Document scan API call.</p><div class="money-out">$0.12</div><span class="status amber">approval needed</span></div>
+      <div class="paper card" style="width:380px"><h3>Background check</h3><p>Third-party API via Stripe Skills.</p><div class="money-out">$25</div><span class="status amber">approval needed</span></div>
+    </div>
+    <div class="caption">Human approves before any money moves. Agent handles the workflow.</div>
+  </section>
+
+  <!-- S6: Safety/approval 59-75 -->
+  <section id="s6" class="clip" data-start="59" data-duration="16" data-track-index="1">
+    <div class="scene-title"><div class="eyebrow">The safety layer is the product</div><h1 style="font-size:72px;max-width:1120px">Pearl drafts everything. The human keeps authority.</h1></div>
+    <div class="row" style="position:absolute; left:120px; right:120px; top:440px; flex-wrap:wrap">
+      <div class="paper card" style="width:300px"><h3>No sends</h3><p>Drafts only.</p><span class="status red">blocked</span></div>
+      <div class="paper card" style="width:300px"><h3>No filing</h3><p>QA gate first.</p><span class="status red">blocked</span></div>
+      <div class="paper card" style="width:300px"><h3>No spend</h3><p>Approval required.</p><span class="status amber">gated</span></div>
+      <div class="paper card" style="width:300px"><h3>No data leaks</h3><p>Private folders excluded.</p><span class="status red">blocked</span></div>
+    </div>
+    <div class="caption">This is why regulated businesses can actually use it.</div>
+  </section>
+
+  <!-- S7: Tech stack 75-85 -->
+  <section id="s7" class="clip" data-start="75" data-duration="10" data-track-index="1">
+    <div style="position:absolute;inset:0;display:grid;place-items:center;text-align:center">
+      <div>
+        <div class="eyebrow">The operating pattern</div>
+        <h2 style="font-size:48px;max-width:1200px;margin:0 auto 40px">Built on the stack the hackathon was made for.</h2>
+        <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+          <span class="pill hermes">Hermes Agent — core engine</span>
+          <span class="pill nvidia">NVIDIA — accelerated inference</span>
+          <span class="pill stripe">Stripe Skills — payments + spend</span>
+          <span class="pill stripe">stripe-link-cli — buy</span>
+          <span class="pill stripe">mpp-agent — pay-per-call APIs</span>
+          <span class="pill stripe">stripe-projects — provision SaaS</span>
+        </div>
+      </div>
+    </div>
+    <div class="caption">Hermes Agent. NVIDIA. Stripe Skills. Memory that learns.</div>
+  </section>
+
+  <!-- S8: Scale 85-98 -->
+  <section id="s8" class="clip" data-start="85" data-duration="13" data-track-index="1">
+    <div class="scene-title"><div class="eyebrow">Why it matters</div><h1 style="font-size:72px">One vertical first. A reusable pattern next.</h1></div>
+    <div class="row" style="position:absolute; left:165px; right:165px; top:430px">
+      <div class="paper card" style="width:500px"><h3>PermitOps OS</h3><p>Permit consultants: cases, packets, approvals, Stripe invoice/spend gates.</p><span class="status green">first vertical</span></div>
+      <div class="paper card" style="width:500px"><h3>FieldOps OS</h3><p>Contractors: intake, dispatch, day board, client follow-up.</p><span class="status blue">next pattern</span></div>
+      <div class="paper card" style="width:500px"><h3>ServiceOps OS</h3><p>Local businesses: operator layer above messy admin work.</p><span class="status amber">repeatable</span></div>
+    </div>
+    <div class="caption">A vertical operator model for real businesses.</div>
+  </section>
+
+  <!-- S9: Close 98-108 -->
+  <section id="s9" class="clip" data-start="98" data-duration="10" data-track-index="1">
+    <div style="position:absolute; inset:0; display:grid; place-items:center; text-align:center; padding:170px">
+      <div>
+        <div class="eyebrow">Built by Linear Marketing Solutions with Silas</div>
+        <h1 style="max-width:1400px;margin:0 auto">PermitOps OS</h1>
+        <p style="margin:28px auto 0; max-width:1000px; font-size:30px">A real operator, running real operations, inside a real business.</p>
+        <div style="margin-top:36px;display:flex;justify-content:center;gap:12px">
+          <span class="pill hermes">Hermes Agent</span>
+          <span class="pill nvidia">NVIDIA</span>
+          <span class="pill stripe">Stripe</span>
+        </div>
+      </div>
+    </div>
+    <div class="caption">Earn. Spend. Operate. Approval-gated. Human-authority-preserved.</div>
+  </section>
+</div>
+<script>
+  window.__timelines = window.__timelines || {};
+  const tl = gsap.timeline({ paused: true });
+  gsap.set('.clip', { opacity: 0 });
+  const scenes = [
+    ['#s1',0,10],['#s2',10,5],['#s3',15,14],['#s4',29,14],['#s5',43,16],['#s6',59,16],['#s7',75,10],['#s8',85,13],['#s9',98,10]
+  ];
+  scenes.forEach(([id,start,dur]) => {
+    tl.set(id, { opacity: 1 }, start);
+    tl.fromTo(id+' h1, '+id+' h2, '+id+' .eyebrow', { y: 44, opacity: 0 }, { y: 0, opacity: 1, duration: .85, stagger: .08, ease: 'power3.out' }, start+.15);
+    tl.fromTo(id+' .paper, '+id+' .glass, '+id+' .pill', { y: 42, opacity: 0, scale: .985 }, { y: 0, opacity: 1, scale: 1, duration: .9, stagger: .06, ease: 'power3.out' }, start+.55);
+    tl.fromTo(id+' .caption', { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: .55, ease: 'power2.out' }, start+.8);
+    if (dur > 6) tl.to(id, { scale: 1.012, duration: dur-1.4, ease: 'none' }, start+.7);
+    tl.to(id, { opacity: 0, duration: .45, ease: 'power2.inOut' }, start+dur-.45);
+  });
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>
