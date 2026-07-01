@@ -49,9 +49,9 @@ Route to appropriate model in the correct tier
 
 ---
 
-## TIER 1: Local Models (Always Available — Air-Gap Capable)
+## TIER 1: Local Models (Always Available for Sensitive Data)
 
-These models run entirely on the local workstation. They are always available, even in full air-gap mode with zero internet connectivity.
+These models run entirely on the local workstation. They are always available, even in local-only sensitive-data mode mode with zero internet connectivity.
 
 ### Target Hardware
 
@@ -69,7 +69,7 @@ Both workstations are designed for exactly this use case: always-on agentic AI r
 
 | Model | Parameters | Primary Use Case | Why Local |
 |---|---|---|---|
-| **GLM-5.2 (local weights)** | ~350B (quantized) | Orchestrator fallback, document reasoning when offline | #1 tool-calling benchmark; maintains operations in air-gap |
+| **GLM-5.2 (local weights)** | ~350B (quantized) | Orchestrator fallback, document reasoning when offline | #1 tool-calling benchmark; maintains operations in local-only isolation |
 | **GPT-OSS-120B** | 120B | General reasoning, code generation, form logic | OpenAI open weights; near-parity with o4-mini; single-GPU |
 | **GPT-OSS-20B** | 20B | Fast lightweight tasks, document classification | Lightweight; runs alongside larger models |
 | **Qwen 3.5-122B** | 122B (MoE, 10B active) | Document analysis, multilingual, coding | Apache 2.0; top open-source performer |
@@ -136,7 +136,7 @@ LOCAL-ONLY MODE:
   All models local; cloud APIs disabled
   → Used when the permit consultant wants zero data leaving the building
 
-FULL AIR-GAP:
+LOCAL-ONLY MODE:
   Network cable unplugged; Tailscale disabled
   Only local models; no cloud access at all
   → Maximum security; Silas delivers updates via physical transfer
@@ -260,7 +260,7 @@ GLM-5.2 (from ZAI) is currently the best model for agentic tool-calling workflow
 - **Available locally and via cloud** — same model family runs on both tiers
 - **Hermes Agent native** — GLM-5.2 is the current default model in the Hermes Agent harness
 
-This means the orchestrator model is consistent whether Pearl is connected to the internet (cloud GLM-5.2) or fully air-gapped (local GLM-5.2 weights). The same reasoning quality, the same tool-calling ability, just running on different hardware.
+This means the orchestrator model is consistent whether Pearl is connected to the internet (cloud GLM-5.2) or fully local-only isolationped (local GLM-5.2 weights). The same reasoning quality, the same tool-calling ability, just running on different hardware.
 
 ### When Models Rotate
 
@@ -284,7 +284,7 @@ If unclear or worse:
 
 ## Inference Cost Management
 
-### Local (Air-Gap) Cost
+### Local Processing Cost
 - **Zero per-token cost** — models run on owned hardware
 - Hardware cost amortized over 3-5 year lifespan
 - Electricity (~$30-50/month for DGX Station)
@@ -301,7 +301,7 @@ If unclear or worse:
 | ElevenLabs | Per-character | $30-100 |
 | **Total cloud (hybrid mode)** | | **$560-1,550/mo** |
 
-In air-gap mode: **$0 cloud cost**. The business saves $560-1,550/month when running fully offline, at the cost of reduced inference quality for non-sensitive tasks.
+In local-only mode: **$0 cloud cost**. The business saves $560-1,550/month when running fully offline, at the cost of reduced inference quality for non-sensitive tasks.
 
 ---
 
@@ -326,7 +326,7 @@ model_routing:
   marketing_creative: minimax                      # Multimodal content
   marketing_visuals: midjourney                    # Image generation
 
-# Local model fallback (air-gap mode)
+# Local model fallback (local-only mode)
 local_models:
   orchestrator: glm-5.2-local          # Local weights
   document_reasoning: deepseek-v4-pro  # Deep reasoning
@@ -362,7 +362,6 @@ $ pnm-file-anaheim \
 
 ## Related
 
-- [Air-Gapped Security](air-gapped-security.md) — how local models enable offline operation
 - [Silas Hub Consultant](silas-hub-consultant.md) — Silas manages model rotation
 - [Weekly Feedback Loop](weekly-feedback-loop.md) — model performance reviewed weekly
 - [Architecture Overview](overview.md) — system data flow

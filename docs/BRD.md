@@ -32,7 +32,7 @@ PermitOps OS is purpose-built for this industry. It is the first product in a br
 | Manual proximity exhibits | 25-50 hrs/yr | Automated Google Cloud proximity exhibit pipeline |
 | Phone interruptions | 2-3 hrs/day | Voice AI triage with specialist delegation |
 | Filing errors/rejections | 2-4 weeks delay per error | Packet readiness checks + inconsistency auditing |
-| Sensitive data risk | Reputation + liability | Air-gapped processing, privacy classifications |
+| Sensitive data risk | Reputation + liability | Local processing, privacy classifications, approval gates |
 
 **Total addressable impact: $200-400K/yr per consultant.**
 
@@ -55,7 +55,7 @@ PermitOps OS is purpose-built for this industry. It is the first product in a br
 1. **Recover lost revenue** — automated pipeline tracking, deposit follow-up, and reactivation campaigns recover $200-400K/yr
 2. **Reduce operational time** — document automation, proximity exhibits, and voice triage save 250-500+ hrs/yr
 3. **Eliminate filing errors** — packet readiness checks and evidence-grounded consistency auditing reduce rejection rate to <2%
-4. **Protect sensitive data** — air-gapped processing ensures zero exposure of SSNs, bank info, and PII to cloud APIs
+4. **Protect sensitive data** — privacy classification and local processing keep SSNs, bank info, and PII out of cloud workflows
 5. **Scale the business** — multi-agent team handles growing caseload without proportional headcount increase
 
 ### Secondary Objectives
@@ -74,13 +74,13 @@ PermitOps OS is purpose-built for this industry. It is the first product in a br
 - Weekly Silas ↔ business agent review cycle
 - Package updates (skills, research, security patches)
 - Cross-business intelligence routing
-- Security monitoring and air-gap management
+- Security monitoring and privacy governance
 - Strategic consulting based on business performance data
 
 ### Tier 3: Usage-Based (Inference/API Costs)
 - Pass-through: Nemotron 3 Ultra inference, Google Cloud APIs, Stripe transaction fees
 - Transparent markup or at-cost depending on tier
-- Air-gap mode uses local inference (lower API cost, slightly reduced capability)
+- Sensitive-data mode uses local inference and strict approval gates
 
 ## 6. Competitive Landscape
 
@@ -89,14 +89,14 @@ PermitOps OS is purpose-built for this industry. It is the first product in a br
 | Generic CRM (Salesforce, HubSpot) | Doesn't understand permit workflows, entities, packets | Purpose-built for permit consulting |
 | GHL / Marketing platforms | Marketing-focused, not operations | Operations-first, approval-gated |
 | Spreadsheets | Manual, error-prone, no intelligence | Fully automated with AI reasoning |
-| Other "AI for business" tools | Cloud-only, no air-gap, no approval gates | Local-first, air-gap capable, human-in-the-loop |
+| Other "AI for business" tools | Cloud-first, weak approval gates | Local-first sensitive-data handling, human-in-the-loop |
 | Manual / no system | Everything depends on the consultant's memory | Never forgets a detail, cites every source |
 
 ## 7. Key Differentiators
 
 1. **Evidence hierarchy** — 7-level source-of-truth system means every fact is verifiable. No hallucinations become filings.
 2. **Approval gates** — Pearl prepares, the human decides. No autonomous sends, filings, or spending.
-3. **Air-gap capable** — can operate fully offline with local models. Client data never touches the internet.
+3. **Privacy-routed** — sensitive client data stays on controlled local systems and only approved non-sensitive work leaves the environment.
 4. **Multi-agent team** — specialist agents handle different task types, coordinated through Paperclip.
 5. **Silas hub management** — weekly reviews, continuous improvement, cross-business intelligence. The system gets smarter every week.
 6. **Voice escalation** — Pearl triages phone calls, delegates routine questions, protects the consultant's time.
@@ -108,7 +108,7 @@ PermitOps OS is purpose-built for this industry. It is the first product in a br
 | Risk | Likelihood | Impact | Mitigation |
 |---|---|---|---|
 | AI filing error causes regulatory issue | Low | High | Evidence hierarchy + approval gates + human actor-of-record |
-| Sensitive data exposure | Low | Critical | Air-gap capability + privacy classifications + local-only processing for PII |
+| Sensitive data exposure | Low | Critical | Privacy classifications + local-only processing for PII + approval gates |
 | Client resistance to AI | Medium | Medium | Pearl named persona, human always available, gradual trust building |
 | Model provider outage | Medium | Low | Multi-model routing + local model fallback |
 | Regulatory changes | Medium | Medium | Forms librarian + weekly Silas research updates |
@@ -154,4 +154,4 @@ Future LMS clients  →  ServiceOps OS  (general services) 📋 Planned
 
 Each vertical gets the same architecture: Hermes Agent brain + domain-specific skills + approval gates + Stripe integration + multi-agent team + Silas hub management.
 
-The end goal: LMS deploys and manages AI business operators for service businesses across every vertical — each one local-first, air-gap capable, and continuously improved through the weekly Silas review cycle. One hub, many businesses, compound intelligence.
+The end goal: LMS deploys and manages AI business operators for service businesses across every vertical — each one local-first, privacy-routed, and continuously improved through the weekly Silas review cycle. One hub, many businesses, compound intelligence.

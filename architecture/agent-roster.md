@@ -17,11 +17,11 @@ The system has two orchestration layers: **Silas** (the LMS hub consultant that 
 │  • Package delivery (skills, research, software, security)     │
 │  • Weekly business reviews                                     │
 │  • Cross-business intelligence aggregation                     │
-│  • Air-gap management and security monitoring                  │
+│  • Privacy governance and security monitoring                  │
 │  • Escalation routing from business agents                     │
 └───────────────────────────┬──────────────────────────────────┘
                              │
-              deploys / updates / reviews / air-gaps
+              deploys / updates / reviews / governs security
                              │
 ┌───────────────────────────▼──────────────────────────────────┐
 │  TIER 1: PEARL — Business Chief of Staff (Orchestrator)       │
@@ -58,7 +58,7 @@ The system has two orchestration layers: **Silas** (the LMS hub consultant that 
 | **Role** | Central hub — deploys, updates, reviews, and secures business agents |
 | **Manages** | Pearl (PermitOps), Marvin (FieldOps), future business agents |
 | **Weekly cycle** | Reads each agent's business review → delivers improvements |
-| **Security** | Can air-gap any business, monitor logs, deliver patches |
+| **Security** | Monitors logs, manages privacy controls, delivers patches |
 | **Intelligence** | Aggregates learnings across all deployments |
 
 See [Silas Hub Consultant](silas-hub-consultant.md) for full details.
@@ -195,7 +195,7 @@ See [Voice Escalation](voice-escalation.md) for the full triage system.
 4. **Privacy protection** — `_personal/` and sensitive docs marked `private-do-not-ingest`
 5. **Budget enforcement** — agents that exceed limits are paused, not silently continued
 6. **Escalation chain** — uncertain decisions route up: specialist → Pearl → Silas → the LMS owner/human
-7. **Air-gap capability** — Silas can disconnect any business from the internet at any time
+7. **Privacy controls** — Silas can route sensitive work to local systems and require human approval
 
 ## Related
 
@@ -203,4 +203,3 @@ See [Voice Escalation](voice-escalation.md) for the full triage system.
 - [Silas Hub Consultant](silas-hub-consultant.md)
 - [Voice Escalation](voice-escalation.md)
 - [Weekly Feedback Loop](weekly-feedback-loop.md)
-- [Air-Gapped Security](air-gapped-security.md)

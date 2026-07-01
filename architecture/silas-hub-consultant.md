@@ -19,7 +19,7 @@ This document describes the hub-and-spoke model where Silas serves as the centra
 │  │  • Conducts weekly business reviews with each agent      │ │
 │  │  • Provides research, marketing, sales intelligence      │ │
 │  │  • Monitors security, logs, gateway health               │ │
-│  │  • Can air-gap any business from the internet            │ │
+│  │  • Can local-only isolation any business from the internet            │ │
 │  │  • Manages escalation queues from business agents        │ │
 │  └──────────────────────────────────────────────────────────┘ │
 │                          │ │ │ │                                │
@@ -89,11 +89,11 @@ Every week, Silas conducts a structured review with Pearl:
 
 See [Weekly Feedback Loop](weekly-feedback-loop.md) for the full cycle.
 
-### 3. Security & Air-Gap Management
+### 3. Security & Privacy Governance
 
-Silas is responsible for the security posture of every business agent deployment. This includes the ability to **fully air-gap** a business from the internet when client data sensitivity requires it.
+Silas is responsible for the security posture of every business agent deployment. This includes the ability to **fully local-only isolation** a business from the internet when client data sensitivity requires it.
 
-#### Air-Gap Capability
+#### Local Sensitive-Data Capability
 
 Permit consulting involves extremely sensitive data:
 - Social Security Numbers (SSN)
@@ -107,7 +107,7 @@ For maximum security, Silas can configure a business instance to run **completel
 
 ```
 ┌──────────────────────────────────────────────────────┐
-│  AIR-GAPPED BUSINESS INSTANCE                         │
+│  CONTROLLED BUSINESS INSTANCE                         │
 │                                                       │
 │  ┌──────────────────────────────────────────────┐    │
 │  │  Dedicated Hardware (Mac mini)               │    │
@@ -127,16 +127,15 @@ For maximum security, Silas can configure a business instance to run **completel
 └──────────────────────────────────────────────────────┘
 ```
 
-#### Local Inference for Air-Gapped Mode
+#### Local Inference for Local-Only Mode
 
-In fully air-gapped mode, PermitOps OS falls back to local models:
+In fully local-only isolationped mode, PermitOps OS falls back to local models:
 - **Nemotron 3 Ultra (local)** — if NVIDIA hardware is available locally
 - **Local Mamba/Transformer models** — for document reasoning without internet
 - **Reduced capability mode** — the system degrades gracefully: all approval gates still work, all vault operations work, but inference quality may be lower than cloud-routed models
 
 Silas manages the tradeoff: **cloud inference = better quality, local inference = better security**. For the most sensitive client data (SSNs, bank accounts, personal history records), the system defaults to local processing only, even when internet is available.
 
-See [Air-Gapped Security](air-gapped-security.md) for the full security model.
 
 ### 4. Escalation Routing
 
@@ -155,7 +154,7 @@ Pearl routes to Silas escalation queue
 Silas reviews, decides, and routes back:
   (a) Resolution instructions to Pearl
   (b) Escalation to the LMS owner (LMS owner) if human decision needed
-  (c) Emergency air-gap if security breach suspected
+  (c) Emergency local-only isolation if security breach suspected
 ```
 
 ### 5. Multi-Business Intelligence
@@ -198,12 +197,11 @@ Silas (LMS Hub) — runs on the LMS owner's primary infrastructure
 | **Silas** | Package delivery, log review, security posture, aggregate metrics | Client PII, case details, financial data (unless escalated) |
 | **Pearl** | All PNM business data within approved scope | Other businesses' data, Silas infrastructure |
 | **Specialists** | Scoped task data only | Full case history, other specialists' work, raw PII |
-| **Client Hardware** | Local files, local models, local vault | Internet (in air-gap mode), Silas infrastructure |
+| **Client Hardware** | Local files, local models, local vault | Internet (in local-only mode), Silas infrastructure |
 
 ## Related
 
 - [Paperclip Orchestration](paperclip-orchestration.md) — the control plane Silas uses
 - [Weekly Feedback Loop](weekly-feedback-loop.md) — the structured Silas ↔ Pearl review cycle
-- [Air-Gapped Security](air-gapped-security.md) — full security model for sensitive data
 - [Agent Roster](agent-roster.md) — the full team Silas manages
 - [Vertical Expansion Vision](../README.md#vertical-expansion-vision) — PermitOps → FieldOps → ServiceOps

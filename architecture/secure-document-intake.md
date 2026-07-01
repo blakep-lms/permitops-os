@@ -1,10 +1,10 @@
 # Secure Document Intake — Replacing the Internet-Facing Portal
 
-The original client portal concept (a web app where clients log in, upload documents, and chat with agents) is a **fundamental contradiction** of the air-gap security model. If Pearl's workstation is air-gapped, it cannot serve a public-facing portal. If it serves a portal, it is not air-gapped.
+The original client portal concept (a web app where clients log in, upload documents, and chat with agents) is a **fundamental contradiction** of the local-only isolation security model. If Pearl's workstation is local-only isolationped, it cannot serve a public-facing portal. If it serves a portal, it is not local-only isolationped.
 
 This document resolves that contradiction with an architecture inspired by SecureDrop (used by newsrooms and intelligence agencies), data diodes (used in classified environments), and quarantine intake devices.
 
-The core principle: **Pearl never touches the internet. A separate, disposable intake relay handles the internet-facing side. Documents cross the air-gap boundary through controlled, encrypted, audited transfers.**
+The core principle: **Pearl never touches the internet. A separate, disposable intake relay handles the internet-facing side. Documents cross the local-only isolation boundary through controlled, encrypted, audited transfers.**
 
 ---
 
@@ -13,19 +13,19 @@ The core principle: **Pearl never touches the internet. A separate, disposable i
 ```
 ❌ ORIGINAL PORTAL CONCEPT:
 
-  Client Browser ──internet──▶ Pearl's Workstation (air-gapped)
+  Client Browser ──internet──▶ Pearl's Workstation (local-only isolationped)
                                     │
-                                    └── contradiction: if it's air-gapped,
+                                    └── contradiction: if it's local-only isolationped,
                                         no internet connection exists
 ```
 
-An air-gapped machine has no network cable, no WiFi, no Bluetooth, no connection to the outside world. A web portal requires a network connection. These two things cannot coexist on the same machine.
+An local-only isolationped machine has no network cable, no WiFi, no Bluetooth, no connection to the outside world. A web portal requires a network connection. These two things cannot coexist on the same machine.
 
 ---
 
 ## The Solution: Secure Intake Relay
 
-Inspired by SecureDrop (Freedom of the Press Foundation), where a public-facing server accepts encrypted submissions, but decryption and review happen on a completely separate air-gapped computer.
+Inspired by SecureDrop (Freedom of the Press Foundation), where a public-facing server accepts encrypted submissions, but decryption and review happen on a completely separate local-only isolationped computer.
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -73,7 +73,7 @@ Inspired by SecureDrop (Freedom of the Press Foundation), where a public-facing 
 │             │  after quarantine clears                          │
 │             ▼                                                   │
 │  ┌──────────────────────────────────────┐                      │
-│  │  PEARL'S WORKSTATION (air-gapped)     │                      │
+│  │  PEARL'S WORKSTATION (local-only isolationped)     │                      │
 │  │                                       │                      │
 │  │  • DGX Station or Halo                │                      │
 │  │  • NO internet connection             │                      │
@@ -100,7 +100,7 @@ The intake relay hosts a simple, no-login web form:
 5. Client sees confirmation: "Documents received. the permit consultant will process them securely."
 6. Files sit encrypted on the intake relay until the permit consultant/Pearl pulls them
 
-**Key security property:** Even if the intake relay is compromised, the attacker gets encrypted blobs they cannot read. The decryption key lives only on Pearl's air-gapped machine.
+**Key security property:** Even if the intake relay is compromised, the attacker gets encrypted blobs they cannot read. The decryption key lives only on Pearl's local-only isolationped machine.
 
 ### Method 2: Encrypted Email
 
@@ -114,7 +114,7 @@ The intake relay hosts a simple, no-login web form:
 
 ### Method 3: Physical Delivery
 
-Already documented in the air-gap architecture:
+Already documented in the local-only isolation architecture:
 
 1. Client brings documents on a USB drive to the permit consultant's office
 2. USB is scanned on the quarantine device
@@ -181,7 +181,7 @@ The intake relay is intentionally minimal — it is a **digital mailbox**, not a
 6. USB drive wiped (dd if=/dev/zero)
 ```
 
-This is the SecureDrop model. The air-gap is physical. No network path exists between the relay and Pearl. An attacker who compromises the relay gets encrypted files they can't read.
+This is the SecureDrop model. The local-only isolation is physical. No network path exists between the relay and Pearl. An attacker who compromises the relay gets encrypted files they can't read.
 
 ### Option B: Data Diode (Hardware One-Way Transfer)
 
@@ -260,7 +260,7 @@ Before any external file enters Pearl's vault or is processed by any agent:
 
 ## What the Client Experience Looks Like
 
-The client doesn't know about air-gaps, relays, or quarantine. They experience:
+The client doesn't know about local-only isolations, relays, or quarantine. They experience:
 
 1. **the permit consultant says:** "I'll send you a secure upload link for your documents."
 2. **Client gets:** A link like `https://submit.permitsnmore.org/case/ABC123`
@@ -288,11 +288,11 @@ The portal shows **status flags and messages generated by Pearl**, not raw case 
 
 | Traditional Client Portal | Secure Intake Architecture |
 |---|---|
-| Pearl's machine is internet-facing | Pearl stays fully air-gapped |
+| Pearl's machine is internet-facing | Pearl stays fully local-only isolationped |
 | Client data passes through web server in plaintext (unless TLS+server-decrypt) | Client-side encryption before files ever leave the browser |
 | Database of client credentials on the server | No client accounts, no credential database |
 | Breach of portal = full data exposure | Breach of relay = encrypted blobs, no keys |
-| AI processes data on internet-facing server | AI processes data only on air-gapped workstation |
+| AI processes data on internet-facing server | AI processes data only on local-only isolationped workstation |
 | Server stores full case history | Server stores nothing (temporary relay only) |
 | Continuous internet exposure | Seconds-long connection windows (or zero with USB/diode) |
 
@@ -300,7 +300,7 @@ The portal shows **status flags and messages generated by Pearl**, not raw case 
 
 ## Security Properties
 
-1. **Pearl's private key never leaves the air-gapped machine** — decryption is impossible without physical access to Pearl's workstation
+1. **Pearl's private key never leaves the local-only isolationped machine** — decryption is impossible without physical access to Pearl's workstation
 2. **The relay has no intelligence** — it's a mailbox, not a computer. No AI, no database, no vault
 3. **Client-side encryption** — files are encrypted in the browser before upload, so even the relay operator can't read them
 4. **Quarantine is non-negotiable** — no external file enters Pearl's vault without passing malware scan, type validation, privacy classification, and human approval
@@ -330,7 +330,7 @@ The portal shows **status flags and messages generated by Pearl**, not raw case 
 
 ## Replaces: Client Portal Section in Security Catalog
 
-This document supersedes the "Client Portal Security" section in [security-threat-catalog.md](security-threat-catalog.md). The original portal concept assumed Pearl's machine would serve a public-facing web app — that design is incompatible with the air-gap model and has been replaced by the Secure Intake Relay architecture described here.
+This document supersedes the "Client Portal Security" section in [security-threat-catalog.md](security-threat-catalog.md). The original portal concept assumed Pearl's machine would serve a public-facing web app — that design is incompatible with the local-only model and has been replaced by the Secure Intake Relay architecture described here.
 
 The client portal experience (status visibility, document upload, agent chat) still exists — but it lives on the **intake relay**, not on Pearl's machine, and it displays only **status flags and non-sensitive messages**, never raw case data or PII.
 
@@ -338,13 +338,12 @@ The client portal experience (status visibility, document upload, agent chat) st
 
 ## References
 
-- [SecureDrop](https://securedrop.org/) — Freedom of the Press Foundation's whistleblower submission system. Same model: internet-facing server accepts submissions, air-gapped machine decrypts and reviews.
+- [SecureDrop](https://securedrop.org/) — Freedom of the Press Foundation's whistleblower submission system. Same model: internet-facing server accepts submissions, local-only isolationped machine decrypts and reviews.
 - [Owl Cyber Defense — Data Diodes](https://owlcyberdefense.com/learn-about-data-diodes/) — Hardware-enforced one-way data transfer for classified environments.
-- [Nextcloud Air-Gapped Collaboration](https://nextcloud.com/blog/top-5-use-cases-for-air-gapped-collaboration-in-2026/) — Self-hosted collaboration with air-gap support.
+- [Nextcloud Isolated Collaboration](https://nextcloud.com/blog/top-5-use-cases-for-local-only isolationped-collaboration-in-2026/) — Self-hosted collaboration with local-only isolation support.
 
 ## Related
 
-- [Air-Gapped Security](air-gapped-security.md) — the three-tier security model this extends
 - [Evidence Hierarchy](evidence-hierarchy.md) — quarantine tagging connects to source_of-truth levels
 - [Approval Gates](approval-gates.md) — the quarantine approval checkpoint
 - [Security Threat Catalog](security-threat-catalog.md) — supersedes the original portal section

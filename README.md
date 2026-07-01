@@ -23,7 +23,7 @@ The tools that exist (generic CRMs, GHL, spreadsheets) don't understand:
 - **Privacy classifications** — what can be shared vs. what's protected
 - **Human approval gates** — sends, filings, file moves, and spend all need sign-off
 
-And critically: most AI tools **cannot operate offline**. Permit consulting involves SSNs, bank accounts, and personal history records that legally and ethically cannot touch a cloud API.
+Permit consulting involves SSNs, bank accounts, and personal history records that require strict local handling, privacy classification, and human approval before any external action.
 
 ## What PermitOps OS Does
 
@@ -41,7 +41,6 @@ And critically: most AI tools **cannot operate offline**. Permit consulting invo
 | **Voice Triage** | Answers client calls, routes routine questions to specialist agents, passes urgent calls to the human |
 | **Revenue (EARN)** | Drafts and sends Stripe invoices for services rendered |
 | **Spend (SPEND)** | Approval-gated Stripe calls for filing fees, OCR processing, background checks |
-| **Air-Gap Capable** | Can operate fully offline with local models — sensitive data never touches the internet |
 
 ### Operational Systems (Live on Dedicated Hardware)
 - **27 Hermes Agent skills** for permit-specific workflows
@@ -66,7 +65,7 @@ This is not a standalone product. PermitOps OS is deployed and managed by **Sila
 │  • Delivers software/skill/knowledge updates                   │
 │  • Conducts weekly business reviews with each agent            │
 │  • Monitors security, logs, gateway health                     │
-│  • Can air-gap any business from the internet                  │
+│  • Enforces local handling for sensitive client data            │
 │  • Aggregates cross-business intelligence                      │
 │  • Routes research, marketing, sales updates                   │
 │                                                                │
@@ -101,7 +100,7 @@ PermitOps OS runs a **stable of AI models**, not just one. Tasks are routed to t
 
 | Tier | Models | When Used |
 |---|---|---|
-| **Local** (air-gap capable) | GLM-5.2 local, GPT-OSS 120B/20B, Qwen 3.5/3.6, DeepSeek V4, Kimi K2.6 | Always available — handles ALL PII/sensitive data |
+| **Local** | GLM-5.2 local, GPT-OSS 120B/20B, Qwen 3.5/3.6, DeepSeek V4, Kimi K2.6 | Handles PII/sensitive data on controlled client hardware |
 | **Cloud** (when connected) | GLM-5.2 max, Nemotron 3 Ultra, Claude Haiku, GPT-5.5, GPT-mini, GPT Real-Time, Grok, MiniMax | Non-sensitive operations, form submission, research, marketing |
 | **Specialized** | ElevenLabs (voice), Midjourney (marketing visuals), Tesseract (local OCR) | Task-specific roles |
 
@@ -128,7 +127,7 @@ Nemotron 3 Ultra is one model in the cloud tier — it handles **regulatory docu
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │  SILAS — LMS Hub Consultant (deploys/manages multiple businesses) │
-│     deploys updates · weekly reviews · air-gap · security         │
+│     deploys updates · weekly reviews · privacy · security         │
 └──────────────────────────────┬─────────────────────────────────────┘
                                 │
 ┌──────────────────────────────▼─────────────────────────────────────┐
@@ -163,17 +162,17 @@ Nemotron 3 Ultra is one model in the cloud tier — it handles **regulatory docu
 │  └───────────────────────────────────────────────────────────────┘ │
 │                                                                     │
 │  ┌───────────────────────────────────────────────────────────────┐ │
-│  │         MULTI-MODEL INFERENCE + AIR-GAP CAPABILITY            │ │
+│  │         MULTI-MODEL INFERENCE + PRIVACY ROUTING                │ │
 │  │                                                               │ │
 │  │  Nemotron 3 Ultra · GPT-5.5 · ElevenLabs (cloud hybrid)      │ │
-│  │  Local models · Tesseract OCR · Offline geocoder (air-gap)    │ │
+│  │  Local models · Tesseract OCR · controlled data handling       │ │
 │  │  Privacy classification routes PII to local-only processing   │ │
 │  └───────────────────────────────────────────────────────────────┘ │
 │                                                                     │
 │  ┌───────────────────────────────────────────────────────────────┐ │
-│  │         SECURITY TIERS                                         │ │
-│  │  Hybrid (sensitive=local, ops=cloud) · Local-only · Air-gap   │ │
-│  │  Silas can disconnect from internet at any time               │ │
+│  │         SECURITY CONTROLS                                      │ │
+│  │  Privacy classification · local PII handling · audit logs      │ │
+│  │  Human approval before sends, filings, moves, and spend        │ │
 │  └───────────────────────────────────────────────────────────────┘ │
 └────────────────────────────────────────────────────────────────────┘
 ```
@@ -184,7 +183,7 @@ PermitOps OS deploys a **team of specialized AI agents** coordinated through the
 
 | Agent | Role | Phase | Model |
 |---|---|---|---|
-| **Silas** | LMS Hub — deploys, updates, reviews, air-gaps | ✅ Active | GPT-5.5 |
+| **Silas** | LMS Hub — deploys, updates, reviews, governs security | ✅ Active | GPT-5.5 |
 | **Pearl** | Chief of Staff — orchestrates all operations, voice triage | ✅ Active | GPT-5.5 + Nemotron 3 Ultra |
 | **Ruth** | Findings drafts, PDF form filling | Phase 2A | Nemotron 3 Ultra |
 | **Marcus** | Email auto-reply, SMS referrals, deposit follow-ups | Phase 2A | GPT-5.5 |
@@ -200,27 +199,24 @@ All agents operate under **Pearl's authority** with budget limits, audit trails,
 ## Key Innovations
 
 ### 1. Silas Hub — AI Consultant Managed Deployment
-Not a standalone tool — a managed deployment. Silas deploys Pearl, delivers weekly updates, reviews business performance, and can air-gap the entire system. Learnings from Pearl compound across all LMS business agents. This is the **LMS flywheel**: every business agent gets smarter because Silas learns from all of them.
+Not a standalone tool — a managed deployment. Silas deploys Pearl, delivers weekly updates, reviews business performance, and governs the security posture. Learnings from Pearl compound across all LMS business agents. This is the **LMS flywheel**: every business agent gets smarter because Silas learns from all of them.
 
 ### 2. Voice Escalation — Pearl as Phone Gatekeeper
 Client calls are triaged by Pearl: routine questions get routed to specialist agents (Vivian for status, Marcus for scheduling, Ruth for documents); important matters create tasks; urgent matters pass to the permit consultant immediately with a context summary. The most expensive person in the business stops being a switchboard operator.
 
-### 3. Air-Gapped Security — Offline-Capable from Day One
-Three security tiers: hybrid (default), local-only, and full air-gap. Sensitive data (SSNs, bank accounts, personal history records) is ALWAYS processed locally, even in hybrid mode. In air-gap mode, the system runs entirely offline with local models — Silas delivers updates via physical package transfer. Safety mechanisms are local; only inference quality depends on cloud.
-
-### 4. Paperclip Orchestration — Multi-Agent Control Plane
+### 3. Paperclip Orchestration — Multi-Agent Control Plane
 [Paperclip](https://paperclip.ing) provides structured delegation (Pearl assigns to the right specialist), budget enforcement (agents that exceed limits are paused), heartbeat monitoring (dead agents trigger alerts), and escalation queues (uncertain decisions route up the chain).
 
-### 5. Points-of-Consideration Maps (Google Cloud)
+### 4. Points-of-Consideration Maps (Google Cloud)
 Automated ABC/TTB radius maps: Google Geocoding + Address Validation + Static Maps + OSM/Overpass for sensitive-use detection. Court-ready PDF in ~2 minutes vs 30-60 minutes manual.
 
-### 6. Evidence Hierarchy (7-Level Source-of-Truth)
+### 5. Evidence Hierarchy (7-Level Source-of-Truth)
 Every fact carries verifiable provenance. No hallucination becomes a filing. Official portal records > source documents > human confirmation > database rows > vault notes > historical patterns > model inference.
 
-### 7. Approval-Gated Operations
+### 6. Approval-Gated Operations
 4-tier gate system: silent allowed, visible confirmation, explicit approval, launch-forbidden. Pearl prepares; the human decides. Every action logged with agent, reason, amount, and approver.
 
-### 8. Weekly Silas ↔ Pearl Feedback Loop
+### 7. Weekly Silas ↔ Pearl Feedback Loop
 Every Friday: Pearl writes a business review (performance, friction, errors, escalations, research requests). Silas reviews logs + security + delivers improvements. Concrete packages: updated research, new skills, security patches, strategic recommendations.
 
 ## Tech Stack
@@ -229,7 +225,7 @@ Every Friday: Pearl writes a business review (performance, friction, errors, esc
 |---|---|---|
 | **Agent Runtime** | Hermes Agent (Nous Research) | Core AI operator with skills, memory, tools |
 | **Multi-Agent** | [Paperclip](https://paperclip.ing) | Agent lifecycle, delegation, budgets, heartbeats |
-| **Hub Consultant** | Silas (LMS) | Deploys, updates, reviews, air-gaps, cross-business intelligence |
+| **Hub Consultant** | Silas (LMS) | Deploys, updates, reviews, security governance, cross-business intelligence |
 | **Inference (Reasoning)** | NVIDIA Nemotron 3 Ultra | Long-context document analysis, compliance |
 | **Inference (Engineering)** | GPT-5.5 via OpenAI | Code generation, API integration |
 | **Inference (Voice)** | ElevenLabs | Voice triage, call summaries, TTS |
@@ -239,7 +235,7 @@ Every Friday: Pearl writes a business review (performance, friction, errors, esc
 | **Production Target** | FastAPI + SQLAlchemy + HTMX | Local-first business operating system |
 | **Maps/Geocoding** | Google Cloud Platform | Proximity exhibits, address validation |
 | **Payments** | Stripe | Invoice creation, spend gates, audit trail |
-| **Infrastructure** | Dedicated Mac mini (Tailscale) | Isolated, reliable, private, air-gap capable |
+| **Infrastructure** | Dedicated Mac mini (Tailscale) | Isolated, reliable, private, approval-gated |
 
 ## Vertical Expansion Vision
 
@@ -251,7 +247,7 @@ Marvin / a field-services business  →  FieldOps OS  (field services) 🔜 Next
 Future LMS clients  →  ServiceOps OS  (general services) 📋 Planned
 ```
 
-Each vertical gets the same architecture: Hermes Agent brain + domain-specific skills + approval gates + Stripe integration + multi-agent team + Silas hub management + air-gap capability.
+Each vertical gets the same architecture: Hermes Agent brain + domain-specific skills + approval gates + Stripe integration + multi-agent team + Silas hub management + privacy routing.
 
 ## Roadmap
 
@@ -283,10 +279,8 @@ See [roadmap/phases.md](roadmap/phases.md) for details.
 - [Data Model](architecture/data-model.md) — sanitized ERD with 20+ tables
 - [Evidence Hierarchy](architecture/evidence-hierarchy.md) — 7-level source-of-truth system
 - [Security Threat Catalog](architecture/security-threat-catalog.md) — 50+ risks with specific mitigations
-- [Secure Document Intake](architecture/secure-document-intake.md) — client document delivery without breaking air-gap (SecureDrop model)
 - [Approval Gates](architecture/approval-gates.md) — 4-tier human-in-the-loop design
 - [Voice Escalation](architecture/voice-escalation.md) — phone triage and specialist routing
-- [Air-Gapped Security](architecture/air-gapped-security.md) — local models, SSN/bank data protection
 - [Weekly Feedback Loop](architecture/weekly-feedback-loop.md) — Silas ↔ Pearl review cycle
 - [Google Cloud Integration](architecture/google-cloud-integration.md) — automated proximity exhibits
 - [Stripe Integration](architecture/stripe-integration.md) — earn + spend with approval gates

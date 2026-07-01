@@ -18,7 +18,7 @@ PermitOps OS is a secure, local-first, source-grounded business operating system
 - Review flags and human approval gates before any risky action
 - Daily operating views designed to reduce cognitive load
 
-The system is deployed and managed by Silas (an AI consultant from Linear Marketing Solutions) and runs on dedicated client hardware with configurable security tiers, including full air-gap capability.
+The system is deployed and managed by Silas (an AI consultant from Linear Marketing Solutions) and runs on dedicated client hardware with privacy classification, local sensitive-data handling, and approval-gated operations.
 
 ## 2. Architecture
 
@@ -89,7 +89,6 @@ Inbound call → Pearl (Voice AI) → Triage
 |---|---|---|---|
 | Hybrid (default) | Sensitive data local, non-sensitive may use cloud | Selective | Tailscale VPN |
 | Local-only | All inference local, no cloud API calls | None | Tailscale for updates only |
-| Full air-gap | Zero network connectivity | None | None (physical package delivery) |
 
 ## 3. Recommended Stack
 
@@ -148,11 +147,10 @@ See [architecture/evidence-hierarchy.md](../architecture/evidence-hierarchy.md) 
 - Every AI run logged with hash, scope, actor
 - No auto-execution of generated code
 
-### 6.5 Air-Gap Capability
-- Configurable: hybrid → local-only → full air-gap
-- Local model stack for offline inference
-- Physical package delivery for updates in air-gap mode
-- See [architecture/air-gapped-security.md](../architecture/air-gapped-security.md)
+### 6.5 Privacy-Routed Local Processing
+- Configurable routing: local-only for sensitive data, cloud-enabled for approved non-sensitive tasks
+- Local model stack for sensitive-data inference
+- Audited update delivery and approval-gated configuration changes
 
 ## 7. Phasing Plan
 
@@ -191,6 +189,6 @@ See [roadmap/phases.md](../roadmap/phases.md) for the full 6-phase plan:
 | GHL as clean-room UX reference only | Borrow patterns, never proprietary implementation |
 | FastAPI + SQLAlchemy + HTMX | Low CPU, Python-aligned, migration path |
 | Human-in-the-loop AI non-negotiable | Protects against prompt injection, PII leakage, filing errors |
-| Silas hub-and-spoke management model | Enables multi-business deployment, cross-business intelligence, air-gap management |
-| Air-gap capability from day one | Client data sensitivity (SSN, bank, PII) requires offline-capable architecture |
+| Silas hub-and-spoke management model | Enables multi-business deployment, cross-business intelligence, security governance |
+| Privacy-routed local processing from day one | Client data sensitivity (SSN, bank, PII) requires local-first controls |
 | Paperclip for multi-agent orchestration | Structured delegation, budget enforcement, heartbeat monitoring, audit trail |

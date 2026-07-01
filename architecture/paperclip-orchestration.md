@@ -26,7 +26,7 @@ Paperclip sits above individual Hermes Agent instances and provides:
 │  │  See: silas-hub-consultant.md                       │  │
 │  └──────────────────────┬──────────────────────────────┘  │
 │                          │                                  │
-│           deploys / updates / reviews / air-gaps            │
+│           deploys / updates / reviews / governs security            │
 │                          │                                  │
 │  ┌───────────────────────▼──────────────────────────────┐  │
 │  │  Pearl (Business Orchestrator)                       │  │
@@ -173,7 +173,7 @@ Paperclip's most powerful feature is **multi-business orchestration from a centr
 │  • Deploy new agent packages to any business               │
 │  • Push software/skill updates                             │
 │  • Review weekly logs and session data                     │
-│  • Air-gap any business from the internet                  │
+│  • Enforce privacy routing and approval gates              │
 │  • Conduct weekly business reviews with each agent         │
 │  • Route research/marketing/sales intelligence updates     │
 └──────────────────────────────────────────────────────────┘
@@ -198,4 +198,3 @@ Paperclip is designed so that Phase 1 works perfectly as a single-agent system. 
 - [Agent Roster](agent-roster.md) — the 9-agent team
 - [Voice Escalation](voice-escalation.md) — phone triage through the Paperclip chain
 - [Weekly Feedback Loop](weekly-feedback-loop.md) — Silas ↔ Pearl review cycle
-- [Air-Gapped Security](air-gapped-security.md) — isolation modes for sensitive deployments

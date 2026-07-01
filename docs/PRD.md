@@ -47,7 +47,7 @@ Documents arrive via email, download, scan, secure intake relay — and end up i
 ABC applications require radius maps showing sensitive uses within 500-600ft. Manual map creation takes 30-60 minutes per location. The system must automate this end-to-end using Google Cloud APIs.
 
 ### Problem 5: Sensitive Data Protection
-Permit filings require SSNs, bank information, personal history records. This data must never touch a cloud API. The system must have configurable air-gap capability.
+Permit filings require SSNs, bank information, and personal history records. This data requires local handling, privacy classification, and approval gates before any external action.
 
 ### Problem 6: Revenue Leakage
 Dropped deals, forgotten follow-ups, uncollected deposits, and underpriced services cost the business $200-400K/year. The system must track revenue, flag missing deposits, and surface pricing intelligence.
@@ -88,7 +88,7 @@ Every client call interrupts the consultant regardless of urgency. The system mu
 ### 4.5 Secure Document Intake
 - Separate, disposable intake relay accepts encrypted client submissions (SecureDrop model)
 - Client-side encryption: files encrypted in browser before upload
-- Pearl's workstation remains fully air-gapped — relay has no AI, no vault, no database
+- Pearl's workstation remains isolated from public intake surfaces — relay has no AI, no vault, no database
 - Quarantine zone: malware scan, type validation, privacy classification, human approval
 - Client experience: upload docs, view case status, chat with agent — all through relay
 - Three transfer methods: USB sneakernet, data diode, brief authenticated pull
@@ -125,12 +125,12 @@ Every client call interrupts the consultant regardless of urgency. The system mu
 - Urgent → immediate pass to human with context summary
 - Outbound calls for reminders (approval-gated)
 
-### 4.11 Security & Air-Gap
-- Three security tiers: hybrid, local-only, full air-gap
+### 4.11 Security & Privacy Controls
+- Privacy classification for documents, cases, and outbound actions
 - Privacy classification enforcement (testable)
 - PII never sent to cloud APIs
-- Silas-managed security monitoring and air-gap execution
-- Local model fallback for offline operation
+- Silas-managed security monitoring and incident response
+- Local model routing for sensitive-data handling
 
 ### 4.12 Management & Feedback
 - Weekly Silas ↔ Pearl business review
@@ -163,7 +163,7 @@ Every client call interrupts the consultant regardless of urgency. The system mu
 ## 7. Constraints
 
 - Must run on a Mac mini (low CPU footprint)
-- Must work offline (air-gap capable)
+- Must keep sensitive-data workflows available on controlled client hardware
 - Must handle sensitive data without cloud exposure
 - Must comply with CCPA, GLBA, and ABC regulatory requirements
 - Must maintain audit trail for all actions

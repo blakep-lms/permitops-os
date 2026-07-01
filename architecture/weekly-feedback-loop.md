@@ -200,4 +200,3 @@ The weekly feedback loop is **already operational**:
 - [Silas Hub Consultant](silas-hub-consultant.md) — the full hub architecture
 - [Paperclip Orchestration](paperclip-orchestration.md) — agent lifecycle management
 - [Skills](../skills/README.md) — `pnm-weekly-review` and related session skills
-- [Air-Gapped Security](air-gapped-security.md) — security posture reviewed weekly

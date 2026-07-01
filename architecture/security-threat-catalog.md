@@ -2,7 +2,7 @@
 
 This document catalogs every known attack surface relevant to PermitOps OS and documents the specific mitigation for each. Security is Phase 0 — not a feature added later. Every item here has a corresponding test, gate, or architectural decision.
 
-The secure document intake architecture (separate relay + air-gapped processing + quarantine) introduces the only public-facing surface — the intake relay. All client-facing risks below are evaluated against that architecture. See [secure-document-intake.md](secure-document-intake.md) for the full design.
+The secure document intake architecture (separate relay + local-only isolationped processing + quarantine) introduces the only public-facing surface — the intake relay. All client-facing risks below are evaluated against that architecture. See [secure-document-intake.md](secure-document-intake.md) for the full design.
 
 ---
 
@@ -15,7 +15,7 @@ The secure document intake architecture (separate relay + air-gapped processing 
 - In multi-user mode, database is behind a private network — no public port
 - PostgreSQL uses `pg_hba.conf` to restrict connections to localhost or VPN subnet
 - Tailscale network is the only access path; no public IP exposure
-- Air-gap mode: physical network isolation
+- Local-only mode: physical network isolation
 - Test: `nmap -p 5432 <public-ip>` returns filtered/closed
 
 ---
@@ -638,7 +638,7 @@ The secure document intake architecture (separate relay + air-gapped processing 
 - 3-2-1 rule: 3 copies, 2 media, 1 offsite
 - Recovery time objective: <4 hours for database
 - Recovery point objective: <24 hours of data loss
-- Air-gap mode: physical backup transfer (USB drive, encrypted)
+- Local-only mode: physical backup transfer (USB drive, encrypted)
 - Test: restore from backup → all data present and functional
 
 ---
@@ -696,7 +696,7 @@ The secure document intake architecture (separate relay + air-gapped processing 
 - Sensitive columns (if stored): application-layer encryption before write
 - SSN/bank/financial references: store as redacted pointers to source files, not as structured data
 - Source documents with PII: stored in quarantined folders, processed locally only
-- Air-gap mode: all data stays on encrypted local disk, never leaves
+- Local-only mode: all data stays on encrypted local disk, never leaves
 - Backups encrypted
 - Test: `grep` database for SSN patterns → zero matches (stored as references only)
 
@@ -731,7 +731,7 @@ The secure document intake architecture (separate relay + air-gapped processing 
 
 ## Client Portal Security — Secure Intake Architecture
 
-The client portal lives on the **intake relay**, a separate disposable device — not on Pearl's machine. Pearl's workstation remains fully air-gapped. This resolves the fundamental contradiction between "clients need to submit documents" and "the system must be air-gapped."
+The client portal lives on the **intake relay**, a separate disposable device — not on Pearl's machine. Pearl's workstation remains fully local-only isolationped. This resolves the fundamental contradiction between "clients need to submit documents" and "the system must be local-only isolationped."
 
 See [secure-document-intake.md](secure-document-intake.md) for the full architecture (relay design, transfer methods, quarantine zone, deployment tiers).
 
@@ -777,7 +777,7 @@ Clients eventually gain the ability to:
 │                                │  authenticated pull)  │
 │                                ▼                      │
 │  ┌──────────────────────────────────────────────┐    │
-│  │  PEARL'S WORKSTATION (air-gapped)             │    │
+│  │  PEARL'S WORKSTATION (local-only isolationped)             │    │
 │  │                                               │    │
 │  │  Pearl + specialists + full case data         │    │
 │  │  Processes documents locally                  │    │
@@ -824,7 +824,6 @@ For Pearl:
 
 ## Related
 
-- [Air-Gapped Security](air-gapped-security.md) — local-first architecture for sensitive data
 - [Approval Gates](approval-gates.md) — human-in-the-loop for all risky actions
 - [Evidence Hierarchy](evidence-hierarchy.md) — privacy classifications
 - [Data Model](data-model.md) — `activity_log`, `ai_runs`, `privacy_classifications` tables
